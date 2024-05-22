@@ -1,0 +1,31 @@
+name: Deploy to Windows Server
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.17.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the React app with production environment
+        run: npx env-cmd -f ./environments/.env.production npm run build
+
+      - name: Copy build files to server
+        run: |
+          echo "$PSSH_KEY" > key.pem
+          pscp -i key.pem -r ./build/ mustafa@192.168.8.146:/home/mustafa/Desktop/khcc/KHCC/khcclab
+        env:
+          PSSH_KEY: ${{ secrets.PSSH_KEY }}

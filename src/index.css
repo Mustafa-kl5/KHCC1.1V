@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  font-family: "Inter";
+}
+#root {
+  height: 100%;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* auth form  start*/
+
+.auth-form {
+  @apply w-11/12 h-full flex justify-center flex-col p-3 gap-y-5 md:w-6/12 lg:w-4/12;
+}
+
+.auth-heading {
+  @apply text-center text-5xl;
+}
+
+.label {
+  @apply text-2xl block;
+}
+
+.input {
+  @apply w-full p-2 rounded-md my-2 focus:outline-none;
+}
+
+.submit-btn {
+  @apply bg-button-100 text-white text-2xl rounded-md p-1;
+}
+
+/* auth form end */
+*::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 99999px;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
