@@ -4,16 +4,17 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: windows-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Updated to v3
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3 # Updated to v3
         with:
           node-version: "18.17.0"
 
@@ -23,9 +24,12 @@ jobs:
       - name: Build the React app with production environment
         run: npx env-cmd -f ./environments/.env.production npm run build
 
+      - name: Install PuTTY for pscp
+        run: choco install putty -y
+
       - name: Copy build files to server
         run: |
-          echo "$PSSH_KEY" > key.pem
-          pscp -i key.pem -r ./build/ mustafa@192.168.8.146:/home/mustafa/Desktop/khcc/KHCC/khcclab
+          echo "${{ secrets.PSSH_KEY }}" > key.pem
+          pscp -i key.pem -r ./build/ mustafa@192.168.8.146:/home/mustafa/Desktop/KHCC1.1V/
         env:
           PSSH_KEY: ${{ secrets.PSSH_KEY }}
