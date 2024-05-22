@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build the React app with production environment
-        run: npx env-cmd -f ./environments/.env.production npm run build
+        run: npm env-cmd -f ./environments/.env.production npm run build
 
       - name: Install PuTTY for pscp
         run: choco install putty -y
